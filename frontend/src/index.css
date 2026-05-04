@@ -1,0 +1,88 @@
+/* ── Global Reset & Variables ─────────────────────────────────────────── */
+:root {
+  --bg-primary:    #0a0a0f;
+  --bg-surface:    #0f0f1a;
+  --bg-elevated:   #13131f;
+  --border:        #1e1e32;
+  --border-bright: #2a2a45;
+  --accent-green:  #00ff7f;
+  --accent-blue:   #00d4ff;
+  --accent-red:    #ff3860;
+  --accent-yellow: #ffd700;
+  --text-primary:  #e8e8f0;
+  --text-muted:    #6b6b8a;
+  --text-dim:      #3a3a5c;
+  --font-mono:     'Share Tech Mono', 'Courier New', monospace;
+  --font-display:  'Orbitron', sans-serif;
+  --glow-green:    0 0 10px rgba(0, 255, 127, 0.4);
+  --glow-blue:     0 0 10px rgba(0, 212, 255, 0.4);
+  --transition:    150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Scanline overlay for CRT effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+
+/* Utility animations */
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 4px rgba(0, 255, 127, 0.3); }
+  50%       { box-shadow: 0 0 14px rgba(0, 255, 127, 0.7); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-20px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}

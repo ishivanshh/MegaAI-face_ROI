@@ -1,0 +1,139 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 14px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titleDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.titleDot[data-active='true'] {
+  background: var(--accent-green);
+  box-shadow: var(--glow-green);
+  animation: pulse-green 2s infinite;
+}
+
+.titleBar {
+  width: 12px;
+  height: 2px;
+  background: var(--border-bright);
+  flex-shrink: 0;
+}
+
+.recordCount {
+  margin-left: auto;
+  font-size: 8px;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.metric {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+}
+
+.metricLabel {
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.metricValue {
+  font-size: 16px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-weight: bold;
+  line-height: 1;
+}
+
+.metricValue[data-color='green'] { color: var(--accent-green); }
+.metricValue[data-color='blue']  { color: var(--accent-blue);  }
+.metricValue[data-color='yellow']{ color: var(--accent-yellow);}
+.metricValue[data-color='muted'] { color: var(--text-muted);   }
+
+.metricUnit {
+  font-size: 9px;
+  color: var(--text-dim);
+  margin-left: 2px;
+}
+
+/* Table */
+.tableSection { padding-bottom: 0; }
+
+.tableWrapper {
+  max-height: 240px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  margin-top: -2px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-elevated);
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+}
+
+.table td {
+  padding: 5px 8px;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(30, 30, 50, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+
+.dataRow:hover td { background: var(--bg-elevated); color: var(--text-primary); }
+
+.confCell { color: var(--accent-green) !important; }
+
+.emptyRow {
+  text-align: center;
+  color: var(--text-dim);
+  letter-spacing: 0.2em;
+  padding: 20px !important;
+  font-size: 10px;
+}

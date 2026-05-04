@@ -1,0 +1,69 @@
+services:
+
+  # ── PostgreSQL Database ──────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: face_roi_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     roi_user
+      POSTGRES_PASSWORD: roi_pass
+      POSTGRES_DB:       face_roi_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5433:5432"       # Expose for local DB tools; remove in production
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U roi_user -d face_roi_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - roi_net
+
+  # ── FastAPI Backend ──────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: face_roi_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://roi_user:roi_pass@postgres:5432/face_roi_db
+      # Keep one worker so the in-memory FrameBuffer is shared by /stream and /video-feed
+      UVICORN_WORKERS: 1
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - roi_net
+    # Increase shared memory for MediaPipe
+    shm_size: '256mb'
+
+  # ── React Frontend ───────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # In production replace localhost with your backend's domain/IP
+        REACT_APP_API_URL: http://localhost:8000
+        REACT_APP_WS_URL:  ws://localhost:8000/stream
+    container_name: face_roi_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - roi_net
+
+volumes:
+  postgres_data:
+
+networks:
+  roi_net:
+    driver: bridge

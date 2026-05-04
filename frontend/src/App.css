@@ -1,0 +1,108 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  font-size: 32px;
+  color: var(--accent-green);
+  text-shadow: var(--glow-green);
+  line-height: 1;
+  animation: pulse-green 3s infinite;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.header-right { display: flex; align-items: center; }
+
+.sys-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+}
+
+.sys-ok {
+  color: var(--accent-green);
+  text-shadow: var(--glow-green);
+  animation: blink 4s infinite;
+}
+
+/* ── Controls row ────────────────────────── */
+.controls-row { width: 100%; }
+
+/* ── Main grid ───────────────────────────── */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  align-items: start;
+  flex: 1;
+}
+
+@media (max-width: 1100px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.video-col,
+.roi-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Footer ──────────────────────────────── */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+}
+
+@media (max-width: 600px) {
+  .footer { flex-direction: column; gap: 4px; }
+  .title { font-size: 14px; }
+}
