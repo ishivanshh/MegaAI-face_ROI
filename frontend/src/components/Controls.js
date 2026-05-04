@@ -18,7 +18,7 @@ export default function Controls({
             data-on={isStreaming ? 'true' : 'false'}
             data-color="green"
           />
-          <span>CAMERA</span>
+          <span>Camera</span>
         </div>
         <div className={styles.indicator}>
           <span
@@ -26,14 +26,14 @@ export default function Controls({
             data-on={isConnected ? 'true' : 'false'}
             data-color="blue"
           />
-          <span>WEBSOCKET</span>
+          <span>WebSocket</span>
         </div>
       </div>
 
       {/* Error banner */}
       {error && (
         <div className={styles.error}>
-          <span className={styles.errorIcon}>⚠</span>
+          <span className={styles.errorIcon}>!</span>
           {error}
         </div>
       )}
@@ -42,11 +42,11 @@ export default function Controls({
       <div className={styles.buttons}>
         {!isStreaming ? (
           <button className={styles.btn} data-variant="start" onClick={onStart}>
-            ▶ INITIALIZE STREAM
+            Start stream
           </button>
         ) : (
           <button className={styles.btn} data-variant="stop" onClick={onStop}>
-            ■ TERMINATE STREAM
+            Stop stream
           </button>
         )}
       </div>

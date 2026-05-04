@@ -8,7 +8,7 @@
  *   Footer
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useWebcamStream } from './hooks/useWebcamStream';
 import { useROIData }      from './hooks/useROIData';
 import VideoPanel          from './components/VideoPanel';
@@ -17,6 +17,17 @@ import Controls            from './components/Controls';
 import './App.css';
 
 export default function App() {
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = window.localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('theme', theme);
+  }, [theme]);
+
   const {
     videoRef,
     canvasRef,
@@ -30,22 +41,35 @@ export default function App() {
   } = useWebcamStream();
 
   const { records, total } = useROIData(true);
+  const isDark = theme === 'dark';
 
   return (
     <div className="app">
       {/* ── Header ── */}
       <header className="header">
         <div className="header-left">
-          <div className="logo">◈</div>
+          <div className="logo">ROI</div>
           <div>
-            <div className="title">FACE ROI DETECTION</div>
-            <div className="subtitle">REAL-TIME NEURAL PIPELINE // MEDIAPIPE + FASTAPI</div>
+            <div className="title">Face ROI Detection</div>
+            <div className="subtitle">Real-time face region tracking with MediaPipe and FastAPI</div>
           </div>
         </div>
         <div className="header-right">
+          <button
+            type="button"
+            className="theme-toggle"
+            role="switch"
+            aria-checked={isDark}
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+          >
+            <span className="theme-toggle-track">
+              <span className="theme-toggle-thumb" />
+            </span>
+            <span>{isDark ? 'Dark' : 'Light'} mode</span>
+          </button>
           <div className="sys-info">
-            <span>SYS</span>
-            <span className="sys-ok">ONLINE</span>
+            <span>System</span>
+            <span className="sys-ok">Online</span>
           </div>
         </div>
       </header>
@@ -83,9 +107,9 @@ export default function App() {
 
       {/* ── Footer ── */}
       <footer className="footer">
-        <span>FACE-ROI-SYSTEM v1.0.0</span>
-        <span>MEDIAPIPE · FASTAPI · POSTGRESQL · REACT</span>
-        <span>NO OPENCV</span>
+        <span>Face ROI System v1.0.0</span>
+        <span>MediaPipe / FastAPI / PostgreSQL / React</span>
+        <span>No OpenCV</span>
       </footer>
     </div>
   );

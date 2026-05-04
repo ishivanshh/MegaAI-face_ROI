@@ -35,16 +35,12 @@ function drawROIOverlay(canvas, video, roi) {
   const { x, y, width, height, confidence } = roi;
 
   // Outer glow effect
-  ctx.shadowColor = '#00ff7f';
-  ctx.shadowBlur  = 18;
-
   // Bounding box
-  ctx.strokeStyle = '#00ff7f';
+  ctx.strokeStyle = '#34d399';
   ctx.lineWidth   = 2.5;
   ctx.strokeRect(x, y, width, height);
 
   // Corner accents
-  ctx.shadowBlur = 0;
   ctx.strokeStyle = '#ffffff';
   ctx.lineWidth   = 3;
   const cl = Math.min(22, width * 0.15);
@@ -61,23 +57,20 @@ function drawROIOverlay(canvas, video, roi) {
   });
 
   // Label
-  const label = `FACE  ${Math.round(confidence * 100)}%`;
+  const label = `Face ${Math.round(confidence * 100)}%`;
   const fontSize = Math.max(11, Math.round(width * 0.07));
-  ctx.font = `bold ${fontSize}px 'Share Tech Mono', monospace`;
+  ctx.font = `bold ${fontSize}px Arial, sans-serif`;
   const textW = ctx.measureText(label).width;
   const lx = x;
   const ly = y - fontSize - 6;
 
   // Label background
-  ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.78)';
   ctx.fillRect(lx - 3, ly - 2, textW + 8, fontSize + 6);
 
   // Label text
-  ctx.fillStyle   = '#00ff7f';
-  ctx.shadowColor = '#00ff7f';
-  ctx.shadowBlur  = 6;
+  ctx.fillStyle   = '#ffffff';
   ctx.fillText(label, lx + 1, ly + fontSize - 2);
-  ctx.shadowBlur = 0;
 }
 
 export default function VideoPanel({ videoRef, canvasRef, isStreaming, roi }) {
@@ -94,8 +87,8 @@ export default function VideoPanel({ videoRef, canvasRef, isStreaming, roi }) {
       <div className={styles.panel}>
         <div className={styles.panelHeader}>
           <span className={styles.dot} data-active={isStreaming} />
-          <span className={styles.label}>LOCAL INPUT</span>
-          <span className={styles.badge}>RAW</span>
+          <span className={styles.label}>Local input</span>
+          <span className={styles.badge}>Raw</span>
         </div>
         <div className={styles.videoWrapper}>
           <video
@@ -111,8 +104,8 @@ export default function VideoPanel({ videoRef, canvasRef, isStreaming, roi }) {
           />
           {!isStreaming && (
             <div className={styles.placeholder}>
-              <div className={styles.placeholderIcon}>◈</div>
-              <div>CAMERA OFFLINE</div>
+              <div className={styles.placeholderIcon}>Camera</div>
+              <div>Camera is offline</div>
             </div>
           )}
         </div>
@@ -122,7 +115,7 @@ export default function VideoPanel({ videoRef, canvasRef, isStreaming, roi }) {
       <div className={styles.panel}>
         <div className={styles.panelHeader}>
           <span className={styles.dot} data-active={isStreaming} data-color="blue" />
-          <span className={styles.label}>PROCESSED OUTPUT</span>
+          <span className={styles.label}>Processed output</span>
           <span className={styles.badge} data-color="blue">MJPEG</span>
         </div>
         <div className={styles.videoWrapper}>
@@ -134,8 +127,8 @@ export default function VideoPanel({ videoRef, canvasRef, isStreaming, roi }) {
             />
           ) : (
             <div className={styles.placeholder}>
-              <div className={styles.placeholderIcon}>◈</div>
-              <div>AWAITING STREAM</div>
+              <div className={styles.placeholderIcon}>Output</div>
+              <div>Waiting for stream</div>
             </div>
           )}
         </div>

@@ -25,24 +25,24 @@ export default function ROIPanel({ roi, stats, records, total }) {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
           <span className={styles.titleDot} data-active={roi?.detected} />
-          LIVE DETECTION
+          Live detection
         </h2>
         <div className={styles.metrics}>
           <MetricCard
-            label="STATUS"
-            value={roi?.detected ? 'DETECTED' : 'NO FACE'}
+            label="Status"
+            value={roi?.detected ? 'Detected' : 'No face'}
             color={roi?.detected ? 'green' : 'muted'}
           />
           <MetricCard
-            label="CONFIDENCE"
-            value={roi?.detected ? `${Math.round((roi.confidence || 0) * 100)}` : '—'}
+            label="Confidence"
+            value={roi?.detected ? `${Math.round((roi.confidence || 0) * 100)}` : '-'}
             unit={roi?.detected ? '%' : ''}
             color="blue"
           />
-          <MetricCard label="X" value={roi?.x != null ? roi.x.toFixed(0) : '—'} unit="px" />
-          <MetricCard label="Y" value={roi?.y != null ? roi.y.toFixed(0) : '—'} unit="px" />
-          <MetricCard label="W" value={roi?.width != null ? roi.width.toFixed(0) : '—'} unit="px" />
-          <MetricCard label="H" value={roi?.height != null ? roi.height.toFixed(0) : '—'} unit="px" />
+          <MetricCard label="X position" value={roi?.x != null ? roi.x.toFixed(0) : '-'} unit="px" />
+          <MetricCard label="Y position" value={roi?.y != null ? roi.y.toFixed(0) : '-'} unit="px" />
+          <MetricCard label="Width" value={roi?.width != null ? roi.width.toFixed(0) : '-'} unit="px" />
+          <MetricCard label="Height" value={roi?.height != null ? roi.height.toFixed(0) : '-'} unit="px" />
         </div>
       </section>
 
@@ -50,12 +50,12 @@ export default function ROIPanel({ roi, stats, records, total }) {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
           <span className={styles.titleBar} />
-          STREAM STATS
+          Stream stats
         </h2>
         <div className={styles.metrics}>
           <MetricCard label="FPS" value={stats.fps} color="yellow" />
-          <MetricCard label="FRAMES" value={stats.frames.toLocaleString()} />
-          <MetricCard label="DB RECORDS" value={total.toLocaleString()} color="blue" />
+          <MetricCard label="Frames" value={stats.frames.toLocaleString()} />
+          <MetricCard label="DB records" value={total.toLocaleString()} color="blue" />
         </div>
       </section>
 
@@ -63,26 +63,26 @@ export default function ROIPanel({ roi, stats, records, total }) {
       <section className={styles.section + ' ' + styles.tableSection}>
         <h2 className={styles.sectionTitle}>
           <span className={styles.titleBar} />
-          DETECTION LOG
+          Detection log
           <span className={styles.recordCount}>{total} total</span>
         </h2>
         <div className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>TIME</th>
+                <th>Time</th>
                 <th>X</th>
                 <th>Y</th>
                 <th>W</th>
                 <th>H</th>
-                <th>CONF</th>
+                <th>Conf</th>
               </tr>
             </thead>
             <tbody>
               {records.length === 0 ? (
                 <tr>
                   <td colSpan={6} className={styles.emptyRow}>
-                    — NO RECORDS —
+                    No records yet
                   </td>
                 </tr>
               ) : (
