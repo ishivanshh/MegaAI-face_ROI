@@ -203,21 +203,9 @@ psql -U roi_user -d face_roi_db -f db/init.sql
 
 | Variable              | Default                                          | Description              |
 |-----------------------|--------------------------------------------------|--------------------------|
-| `DATABASE_URL`        | `postgresql+asyncpg://roi_user:roi_pass@...`    | Async PostgreSQL URL     |
+| `DATABASE_URL`        | `postgresql+asyncpg://roi_user:roi_pass@...`     | Async PostgreSQL URL     |
 | `REACT_APP_API_URL`   | `http://localhost:8000`                          | Backend HTTP base URL    |
 | `REACT_APP_WS_URL`    | `ws://localhost:8000/stream`                     | WebSocket URL            |
-
----
-
-## Scaling Suggestions
-
-1. **Multiple workers**: Increase `--workers` in the uvicorn CMD. MediaPipe is process-safe.
-2. **Redis FrameBuffer**: Replace the in-memory `FrameBuffer` with Redis pub/sub so multiple backend workers share frames.
-3. **Message queue**: Use Kafka or RabbitMQ to decouple frame ingest from DB writes.
-4. **Horizontal scaling**: Put the backend behind nginx + upstream load balancing.
-5. **GPU acceleration**: MediaPipe supports GPU delegates on CUDA/Metal for higher throughput.
-6. **DB pruning**: Add a scheduled job (`pg_cron`) to delete rows older than N days.
-7. **CDN/RTMP**: For production streaming, consider HLS or WebRTC instead of MJPEG.
 
 ---
 

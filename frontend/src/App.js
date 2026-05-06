@@ -1,5 +1,5 @@
 /**
- * Face ROI Detection System — Main App
+ * Face ROI — Main App
  *
  * Layout:
  *   Header
@@ -50,7 +50,7 @@ export default function App() {
         <div className="header-left">
           <div className="logo">ROI</div>
           <div>
-            <div className="title">Face ROI Detection</div>
+            <div className="title">MegaAI ROI Detection Model</div>
             <div className="subtitle">Real-time face region tracking with MediaPipe and FastAPI</div>
           </div>
         </div>
