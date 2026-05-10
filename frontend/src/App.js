@@ -1,13 +1,3 @@
-/**
- * Face ROI — Main App
- *
- * Layout:
- *   Header
- *   Controls bar
- *   Main grid: [VideoPanel (2/3)] | [ROIPanel (1/3)]
- *   Footer
- */
-
 import React, { useEffect, useState } from 'react';
 import { useWebcamStream } from './hooks/useWebcamStream';
 import { useROIData }      from './hooks/useROIData';
@@ -109,7 +99,6 @@ export default function App() {
       <footer className="footer">
         <span>Face ROI System v1.0.0</span>
         <span>MediaPipe / FastAPI / PostgreSQL / React</span>
-        <span>No OpenCV</span>
       </footer>
     </div>
   );
